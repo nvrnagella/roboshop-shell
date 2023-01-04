@@ -1,4 +1,4 @@
-
+var=$(pwd)
 yum install nginx -y
 
 systemctl enable nginx
@@ -13,7 +13,7 @@ cd /usr/share/nginx/html
 
 unzip /tmp/frontend.zip
 
-cp /files/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf
+cp ${var}/files/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf
 
 systemctl restart nginx
 
