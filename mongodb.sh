@@ -1,5 +1,5 @@
-var=$(pwd)
-cp ${var}/files/mongodb.repo /etc/yum.repos.d/mongo.repo
+script_location=$(pwd)
+cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo
 yum install mongodb-org -y
 
 
