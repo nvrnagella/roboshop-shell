@@ -5,7 +5,6 @@ set -e
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
 yum install nodejs -y
-
 #useradd roboshop
 
 mkdir -p /app
@@ -25,7 +24,7 @@ systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
 
-cp ${var}/files/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo
 
 yum install mongodb-org-shell -y
 
