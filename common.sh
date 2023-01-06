@@ -10,3 +10,7 @@ status_check() {
   exit
   fi
 }
+
+print_head() {
+  echo -e "\e[1m  \e[0m"
+}
