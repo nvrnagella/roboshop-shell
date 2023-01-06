@@ -7,6 +7,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 
 echo -e "\e[31m installing nodejs \e[0m"
@@ -16,6 +17,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m add application user \e[0m"
 useradd roboshop &>>${LOG}
@@ -24,6 +26,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 mkdir -p /app &>>${LOG}
 if [ $? -eq 0 ]
@@ -31,6 +34,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m downloading app content \e[0m"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>${LOG}
@@ -39,6 +43,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m cleaned old app content \e[0m"
 rm -rf /app/* &>>${LOG}
@@ -47,6 +52,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 cd /app
 echo -e "\e[31m extracting app data \e[0m"
@@ -56,6 +62,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 
 cd /app
@@ -66,6 +73,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m configuring catalogue service \e[0m"
 cp ${script_location}/files/catalogue.service /etc/systemd/system/catalogue.service &>>${LOG}
@@ -74,6 +82,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m reloading daemon \e[0m"
 systemctl daemon-reload &>>${LOG}
@@ -82,6 +91,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m enabling catalogue \e[0m"
 systemctl enable catalogue &>>${LOG}
@@ -90,6 +100,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m starting catalogue \e[0m"
 systemctl start catalogue &>>${LOG}
@@ -98,6 +109,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m copying mongo repo \e[0m"
 cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
@@ -106,6 +118,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m installing mongo client \e[0m"
 yum install mongodb-org-shell -y &>>${LOG}
@@ -114,6 +127,7 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
 echo -e "\e[31m loading database schema \e[0m"
 mongo --host mongodb-dev.nvrnagella.online </app/schema/catalogue.js &>>${LOG}
@@ -122,4 +136,5 @@ then
   echo SUCCESS
 else
   echo FAILURE
+exit
 fi
