@@ -67,17 +67,17 @@ NODEJS (){
   print_head "starting ${component}"
   systemctl start ${component} &>>${LOG}
   status_check
+  if [ ${schema_load} == "true"]; then
+    print_head "copying mongo repo"
+    cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
+    status_check
 
-  print_head "copying mongo repo"
-  cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
-  status_check
+    print_head "installing mongo client"
+    yum install mongodb-org-shell -y &>>${LOG}
+    status_check
 
-  print_head "installing mongo client"
-  yum install mongodb-org-shell -y &>>${LOG}
-  status_check
-
-  print_head "loading database schema"
-  mongo --host mongodb-dev.nvrnagella.online </app/schema/${component}.js &>>${LOG}
-  status_check
-
+    print_head "loading database schema"
+    mongo --host mongodb-dev.nvrnagella.online </app/schema/${component}.js &>>${LOG}
+    status_check
+  fi
 }
