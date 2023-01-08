@@ -3,7 +3,7 @@
 ##### Change these values ###
 ZONE_ID="Z093867813NZJEGHQX95L"
 DOMAIN="nvrnagella.online"
-SG_NAME="jenkins"
+SG_NAME="allow-all"
 env=dev
 #############################
 
